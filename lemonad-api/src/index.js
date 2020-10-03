@@ -30,9 +30,9 @@ const amount = req.body.amount;
 
 const cups =  data.cups.filter((el) => el.type === type);
 
-    res.send({data: [{
-        price: amount * cups.price,
-        newLemonTotal : amount * cups.lemons - data["total-lemons"],
+res.send({data: [{
+        price: amount * cups[0].price,
+        newLemonTotal :  data["total-lemons"] - (amount * cups[0].lemons) ,
         }
         ]});
 });
