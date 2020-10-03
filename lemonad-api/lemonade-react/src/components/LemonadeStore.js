@@ -1,24 +1,42 @@
 import React,{Component} from "react";
 import {connect} from 'react-redux'
-import {decrement, increment} from "../actions";
+import { buy, getTotalLemons} from "../actions";
 class LemonadeStore extends Component{
     constructor(props) {
     super(props);
-    this.state = {amount: 0, type: ''}
+    this.state = {amount: 0, type: 'medium'}
 
     }
 
+ componentDidUpdate(prevProps, prevState, snapshot) {
+ console.log(prevProps);
+ console.log(prevState);
+ console.log(this.props);
+    }
+
+    handleChange = (e) => {
+        this.setState({amount: e.target.value})
+    }
+
+    handleSelectChange = (e) => {
+        this.setState({type: e.target.value});
+    }
 
     render() {
         return (
 
             <div>
+                <h1>Our total amount of lemons is : {this.props.getTotalLemons()} {this.props.lemons - this.props.lemonUsed}</h1>
+                {this.props.lemonUsed > 0 ? <div>
+                    <h2>You bought {`${this.props.amount} of type ${this.props.type} for a total price $${this.props.price}`}</h2>
+                </div> : null}
                 <form onSubmit={(e) => {
                     e.preventDefault();
+                    this.props.buy(this.state);
                 }}>
                     <label htmlFor="amount">amount</label>
-                    <button onClick={() => this.props.decrement()}>-</button><input type="text" id="amount"/><button onClick={() => this.props.increment()}>+</button>
-                    <select>
+             <input type="text" id="amount" value={this.state.amount} onChange={this.handleChange}/>
+                    <select value={this.state.type} onChange={this.handleSelectChange}>
                         <option
                         value="small"
                         >Small</option>
@@ -30,17 +48,29 @@ class LemonadeStore extends Component{
                         >Large</option>
 
                     </select>
+                    <button>Buy</button>
                 </form>
             </div>
         );
     }
 }
 
-const mapStateToProps = dispatch => {
+const mapStatToProps = state => {
+    console.log(state.data);
     return {
-        increment: () =>  dispatch(increment()),
-        decrement: () => dispatch(decrement())
+        lemons : state.totalLemons,
+        price: state.price,
+        lemonUsed: state.lemonUsed,
+        type: state.type,
+        amount: state.amount
     }
 }
 
-export default connect(null, mapStateToProps)( LemonadeStore);
+const mapDispatchToProps = dispatch => {
+    return {
+        buy : (data) => dispatch(buy(data)),
+        getTotalLemons : () => dispatch(getTotalLemons())
+    }
+}
+
+export default connect(mapStatToProps, mapDispatchToProps)( LemonadeStore);

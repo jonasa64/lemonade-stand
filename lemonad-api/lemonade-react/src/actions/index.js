@@ -1,12 +1,26 @@
-export const increment = () => {
+import axios from 'axios';
+
+export const buy = (data) => {
     return (dispatch, getState) => {
-        dispatch({type:"INCREMENT"});
+        axios.post('http://localhost:5001/cups', data )
+            .then((data) => {
+                console.log(data.data.data);
+                dispatch({type: "BUY", payload: data.data.data});
+            }).catch((err) => {
+                console.log(err);
+        })
     }
 }
 
-export const decrement = () => {
+export const getTotalLemons = () => {
+
     return (dispatch, getState) => {
-        dispatch({type: "DECREMENT"});
+        axios.get('http://localhost:5001/lemons')
+            .then((data) => {
+                dispatch({type: "TOTAL_LEMONS", payload: data.data.lemons});
+            }).catch((err) => {
+            console.log(err);
+        })
     }
 }
 

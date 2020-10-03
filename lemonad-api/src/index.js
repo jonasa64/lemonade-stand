@@ -7,6 +7,7 @@ const  app = express();
 
 app.use(cors());
 
+
 app.use(express.json());
 
 
@@ -30,11 +31,13 @@ const amount = req.body.amount;
 
 const cups =  data.cups.filter((el) => el.type === type);
 
-res.send({data: [{
+res.send({data: {
         price: amount * cups[0].price,
-        newLemonTotal :  data["total-lemons"] - (amount * cups[0].lemons) ,
+        lemonUsed :  (amount * cups[0].lemons) ,
+        type,
+        amount
         }
-        ]});
+        });
 });
 
 
