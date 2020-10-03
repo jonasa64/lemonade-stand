@@ -1,7 +1,4 @@
 # Logs
-.idea
-/lemonad-api/.idea
-/lemonad-api/lemonade-react/.idea
 logs
 *.log
 npm-debug.log*
