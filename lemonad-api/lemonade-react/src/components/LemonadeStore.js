@@ -17,7 +17,7 @@ class LemonadeStore extends Component{
                     e.preventDefault();
                 }}>
                     <label htmlFor="amount">amount</label>
-                    <button onClick={() => decrement()}>-</button><input type="text" id="amount"/><button onClick={() => this.props.increment()}>+</button>
+                    <button onClick={() => this.props.decrement()}>-</button><input type="text" id="amount"/><button onClick={() => this.props.increment()}>+</button>
                     <select>
                         <option
                         value="small"
@@ -38,7 +38,8 @@ class LemonadeStore extends Component{
 
 const mapStateToProps = dispatch => {
     return {
-        increment: () =>  dispatch(increment())
+        increment: () =>  dispatch(increment()),
+        decrement: () => dispatch(decrement())
     }
 }
 
