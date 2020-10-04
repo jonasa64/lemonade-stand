@@ -12,6 +12,20 @@ export const buy = (data) => {
     }
 }
 
+
+export const getOrder = () => {
+
+    return (dispatch, getState) => {
+        axios.get('http://localhost:5001/order')
+            .then((data) => {
+                console.log(data.data.order);
+                dispatch({type: "ORDER", payload: data.data.order});
+            }).catch((err) => {
+            console.log(err);
+        })
+    }
+}
+
 export const getTotalLemons = () => {
 
     return (dispatch, getState) => {
