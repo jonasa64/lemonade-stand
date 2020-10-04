@@ -1,18 +1,13 @@
 import React,{Component} from "react";
 import {connect} from 'react-redux'
-import { buy, getTotalLemons} from "../actions";
+import { buy, getTotalLemons, getOrder} from "../actions";
 class LemonadeStore extends Component{
     constructor(props) {
     super(props);
-    this.state = {amount: 0, type: 'medium'}
+    this.state = {amount: 0, type: 'medium', price: 0}
 
     }
 
- componentDidUpdate(prevProps, prevState, snapshot) {
- console.log(prevProps);
- console.log(prevState);
- console.log(this.props);
-    }
 
     handleChange = (e) => {
         this.setState({amount: e.target.value})
@@ -22,15 +17,23 @@ class LemonadeStore extends Component{
         this.setState({type: e.target.value});
     }
 
+    handelClick = () => {
+        this.props.getOrder();
+        return (
+            <div>
+                <p>{`you bought ${this.props.amount} of type ${this.props.type} for a total price of $${this.props.price}`}</p>
+            </div>
+        )
+    }
+
     render() {
         return (
+                        <div>
 
-            <div>
-                <h1>Our total amount of lemons is : {this.props.getTotalLemons()} {this.props.lemons - this.props.lemonUsed}</h1>
-                {this.props.lemonUsed > 0 ? <div>
-                    <h2>You bought {`${this.props.amount} of type ${this.props.type} for a total price $${this.props.price}`}</h2>
-                </div> : null}
-                <form onSubmit={(e) => {
+                            <h1>Our total amount of lemons is : {this.props.getTotalLemons()} {this.props.lemons}</h1>
+
+                            <button onClick={() => this.handelClick() }>View order</button>
+                            <form onSubmit={(e) => {
                     e.preventDefault();
                     this.props.buy(this.state);
                 }}>
@@ -56,7 +59,7 @@ class LemonadeStore extends Component{
 }
 
 const mapStatToProps = state => {
-    console.log(state.data);
+    console.log(state);
     return {
         lemons : state.totalLemons,
         price: state.price,
@@ -69,7 +72,8 @@ const mapStatToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         buy : (data) => dispatch(buy(data)),
-        getTotalLemons : () => dispatch(getTotalLemons())
+        getTotalLemons : () => dispatch(getTotalLemons()),
+        getOrder: () => dispatch(getOrder())
     }
 }
 
