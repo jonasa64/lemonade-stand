@@ -11,17 +11,19 @@ const initialState = {
 function rootReducer(state = initialState, action) {
     switch (action.type) {
         case "BUY":
+            return action.payload;
+
+        case "TOTAL_LEMONS":
+            return {
+                totalLemons: action.payload
+            }
+
+        case "ORDER":
             return {
                 price: action.payload.price,
                 lemonUsed: action.payload.lemonUsed,
                 type: action.payload.type,
                 amount: action.payload.amount
-
-            }
-
-        case "TOTAL_LEMONS":
-            return {
-                totalLemons: action.payload
             }
         default:
             return state;
