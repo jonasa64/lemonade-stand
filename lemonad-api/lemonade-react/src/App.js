@@ -7,9 +7,15 @@ import Home from "./components/Home";
 function App() {
   return (
       <Router>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/buy">Buy lemonade</NavLink>
-          <NavLink to="/about">About</NavLink>
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+              <ul className="navbar-nav">
+                  <li className="nav-item"><NavLink className="nav-link" to="/">Home</NavLink></li>
+                  <li className="nav-item"><NavLink className="nav-link" to="/buy">Buy lemonade</NavLink></li>
+                  <li className="nav*item"><NavLink className="nav-link" to="/about">About</NavLink></li>
+              </ul>
+
+          </nav>
+
 
           <div className="App">
               <Switch>

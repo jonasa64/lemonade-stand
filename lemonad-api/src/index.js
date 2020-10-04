@@ -39,7 +39,7 @@ const dataSaved = {
     amount
 }
 
-if(json["total-lemons"] - (amount * cups[0].lemons)){
+if(data["total-lemons"] - (amount * cups[0].lemons)){
     res.status(500).send({"error": "We do not have enough lemons"});
 }
 

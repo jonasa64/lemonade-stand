@@ -15,11 +15,13 @@ function rootReducer(state = initialState, action) {
 
         case "TOTAL_LEMONS":
             return {
+                ...state,
                 totalLemons: action.payload
             }
 
         case "ORDER":
             return {
+                ...state,
                 price: action.payload.price,
                 lemonUsed: action.payload.lemonUsed,
                 type: action.payload.type,

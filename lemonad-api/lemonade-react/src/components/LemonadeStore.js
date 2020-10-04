@@ -29,29 +29,37 @@ class LemonadeStore extends Component{
     render() {
         return (
                         <div>
+                                <div>
+                                    <p>{`you bought ${this.props.amount} of type ${this.props.type} for a total price of $${this.props.price}`}</p>
+                                </div>
 
                             <h1>Our total amount of lemons is : {this.props.getTotalLemons()} {this.props.lemons}</h1>
 
-                            <button onClick={() => this.handelClick() }>View order</button>
+                            <button className="btn btn-primary" onClick={() => this.handelClick() }>View order</button>
                             <form onSubmit={(e) => {
                     e.preventDefault();
                     this.props.buy(this.state);
                 }}>
-                    <label htmlFor="amount">amount</label>
-             <input type="text" id="amount" value={this.state.amount} onChange={this.handleChange}/>
-                    <select value={this.state.type} onChange={this.handleSelectChange}>
-                        <option
-                        value="small"
-                        >Small</option>
-                        <option
-                            value="medium"
-                        >Medium</option>
-                        <option
-                        value="large"
-                        >Large</option>
+                                <div className="form-group">
+                                    <label htmlFor="amount">amount</label>
+                                    <input className="form-control" type="text" id="amount" value={this.state.amount} onChange={this.handleChange}/>
+                                </div>
+<div className="form-group">
+    <select className="form-control" value={this.state.type} onChange={this.handleSelectChange}>
+        <option
+            value="small"
+        >Small</option>
+        <option
+            value="medium"
+        >Medium</option>
+        <option
+            value="large"
+        >Large</option>
 
-                    </select>
-                    <button>Buy</button>
+    </select>
+</div>
+
+                    <button className="btn btn-primary">Buy</button>
                 </form>
             </div>
         );
